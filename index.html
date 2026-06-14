@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Chitti 🎂</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: #0a0f1e;
+            color: #f5f0ea;
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Canvas background */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .heart-pulse {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: heartPulse 1.2s cubic-bezier(0.36, 0, 0.66, 1) infinite;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: 1rem;
+            color: #f0c060;
+            font-weight: 900;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            color: #e8a0b0;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .days-counter {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #f0c060;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .hero .days-counter span {
+            color: #e8a0b0;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* ==================== TIMELINE SECTION ==================== */
+        .timeline-section {
+            padding: 4rem 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: #f0c060;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 900;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #f0c060, #e8a0b0, transparent);
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .timeline::before {
+                display: block;
+            }
+        }
+
+        .timeline-event {
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+            position: relative;
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -0.7rem;
+            top: 1rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #f0c060;
+            box-shadow: 0 0 0 6px rgba(240, 192, 96, 0.12);
+        }
+
+        .timeline-event:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-event:nth-child(2) { animation-delay: 0.15s; }
+        .timeline-event:nth-child(3) { animation-delay: 0.2s; }
+        .timeline-event:nth-child(4) { animation-delay: 0.25s; }
+        .timeline-event:nth-child(5) { animation-delay: 0.3s; }
+        .timeline-event:nth-child(n+6) { animation-delay: 0.35s; }
+
+        @media (min-width: 768px) {
+            .timeline-event:nth-child(odd) {
+                margin-left: 0;
+                margin-right: auto;
+                width: 48%;
+                text-align: right;
+                padding-right: 2rem;
+            }
+
+            .timeline-event:nth-child(even) {
+                margin-left: auto;
+                margin-right: 0;
+                width: 48%;
+                text-align: left;
+                padding-left: 2rem;
+            }
+
+            .timeline-event::before {
+                left: auto;
+                right: -0.7rem;
+            }
+
+            .timeline-event:nth-child(odd)::before {
+                right: -0.7rem;
+                left: auto;
+            }
+
+            .timeline-event:nth-child(even)::before {
+                left: -0.7rem;
+                right: auto;
+            }
+        }
+
+        .event-card {
+            background: rgba(240, 192, 96, 0.05);
+            border: 1px solid rgba(240, 192, 96, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            background: rgba(240, 192, 96, 0.1);
+            border-color: rgba(240, 192, 96, 0.4);
+            box-shadow: 0 8px 32px rgba(240, 192, 96, 0.1);
+        }
+
+        .event-date {
+            color: #f0c060;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .event-photo {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .event-text {
+            color: #f5f0ea;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* ==================== LETTER SECTION ==================== */
+        .letter-section {
+            padding: 4rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        .letter-card {
+            background: linear-gradient(135deg, rgba(245, 240, 234, 0.08), rgba(240, 192, 96, 0.05));
+            border: 2px solid rgba(240, 192, 96, 0.3);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(232, 160, 176, 0.15);
+            font-style: italic;
+        }
+
+        .letter-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #f0c060;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        .letter-content {
+            color: #f5f0ea;
+            font-size: 1rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* ==================== CLOSING SECTION ==================== */
+        .closing-section {
+            padding: 4rem 1.5rem;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+            position: relative;
+        }
+
+        .closing-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(240, 192, 96, 0.2), transparent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.2; }
+        }
+
+        .closing-promise {
+            position: relative;
+            z-index: 1;
+        }
+
+        .closing-promise h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 7vw, 3.5rem);
+            color: #f0c060;
+            margin-bottom: 2rem;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .closing-promise p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #e8a0b0;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(245, 240, 234, 0.6);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ==================== PAUSE/RESUME CONTROL ==================== */
+        .pause-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(240, 192, 96, 0.9);
+            color: #0a0f1e;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 100;
+            pointer-events: none;
+            animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pause-indicator.show {
+            opacity: 1;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ==================== SPARKLE ANIMATION ==================== */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #f0c060;
+            border-radius: 50%;
+            animation: sparkle 1s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 767px) {
+            .hero {
+                min-height: 90vh;
+                padding: 1.5rem 1rem;
+            }
+
+            .hero .subtitle {
+                max-width: 100%;
+            }
+
+            .timeline-section {
+                padding: 2.5rem 1rem;
+            }
+
+            .timeline::before {
+                left: 1rem;
+                width: 2px;
+                top: 0;
+                bottom: 0;
+            }
+
+            .timeline-event {
+                margin-left: 0;
+                width: auto;
+                text-align: left;
+                padding-left: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .timeline-event::before {
+                left: -0.8rem;
+                right: auto;
+            }
+
+            .event-card {
+                padding: 1.2rem;
+            }
+
+            .event-photo {
+                max-height: 260px;
+            }
+
+            .letter-section {
+                padding: 3rem 1rem;
+            }
+
+            .letter-card {
+                padding: 2rem;
+                width: 100%;
+            }
+
+            .closing-section {
+                padding: 3rem 1rem;
+                min-height: auto;
+            }
+
+            .closing-promise p {
+                max-width: 100%;
+            }
+
+            .pause-indicator {
+                bottom: 1rem;
+                padding: 0.75rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .closing-promise h2 {
+                line-height: 1.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="content">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="heart-pulse">❤️</div>
+            <h1>Happy Birthday, Chitti 🎂</h1>
+            <p class="subtitle">2 Years. Every moment. Every fight. Every laugh. Still here.</p>
+            <div class="days-counter">We have been bonded for <span id="daysCount">0</span> days 💛</div>
+            <div class="scroll-hint">↓</div>
+        </section>
+
+        <!-- TIMELINE SECTION -->
+        <section class="timeline-section">
+            <h2 class="section-title">Our Journey 🌹</h2>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">May 05, 2024</div>
+                        <img src="./photos/2024-05-05.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Our bond started in Siwnning pool . First at sight.
+
+key moments after that :
+- went for cycling with your batch , Started closing with you jounery
+- again after next week , we both went for palapitta park .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">May 15, 2024</div>
+                        <img src="./photos/2024-05-15.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Started to meetig again and again in office</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">May 17, 2024</div>
+                        <img src="./photos/2024-05-17.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">gang fomed Dharshan pooja and you .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">May 25, 2024</div>
+                        <img src="./photos/2024-05-25.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">black dress code</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 1st week, 2024</div>
+                        <img src="./photos/2024-06-01.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Trip discussions . you postponed Gokarna trip just for me . June 13th.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 8, 2024</div>
+                        <img src="./photos/2024-06-08.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Joshi birthday</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 15, 2024</div>
+                        <img src="./photos/2024-06-15.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Thanmai birthday. Celebrated at Gokarna . The day which turned everything. We closed each opther
+one of the best trip for me . and you enjoed lot and dispointetted your birthday .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 25, 2024</div>
+                        <img src="./photos/2024-06-25.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Came to nallagandla for manoj birthda . ikkadaiki vaste chitti pakkane untundi . Started calling with us cute names.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">July 20, 2024</div>
+                        <img src="./photos/2024-07-20.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Cried for me to come goa .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">July 28, 2024</div>
+                        <img src="./photos/2024-07-28.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Joined goa trip . But dispointtend you</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 04, 2024</div>
+                        <img src="./photos/2024-12-04.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">MY birthday came . My first birthday after meeting us. I still remembers that day
+
+R: Vastunnava ra ?
+T: ledu naku periods ralen annaav.
+R: feeling crid
+T: Went to eat poori
+R: Room vachaka door open cheste, You are infront of me .
+felt very happy.
+aa shock lone . Silver chain ichav . Felt like useless guy kosam yevaru
+intha costly gift ivvaled. chala happy ga anipinchindi. some one is there for me.
+
+we had a great time on that day .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 10, 2024</div>
+                        <img src="./photos/2024-12-10.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">We have major confilt . went for pushpa 2 movie - we cried lot .
+after consoling 7 days.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 17, 2024</div>
+                        <img src="./photos/2024-12-17.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">you started talking alteat something to me</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 18, 2024</div>
+                        <img src="./photos/2024-12-18.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">pasted chitti to my bike .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 19, 2024</div>
+                        <img src="./photos/2024-12-19.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Went to shawgouse. not talking much . we eat .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 20, 2024</div>
+                        <img src="./photos/2024-12-20.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">One of my favitoe pic .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 25, 2024</div>
+                        <img src="./photos/2024-12-25.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Went flipside</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 30, 2024</div>
+                        <img src="./photos/2024-12-30.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">One of my best long jounery , we went to airport to meet your friend. one of by best road trip with us .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">January 30, 2025</div>
+                        <img src="./photos/2025-01-30.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">In office</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">February 4–6, 2025</div>
+                        <img src="./photos/2025-02-04.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">We had Confilt not talk much . skipped pooja wedding .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">February 8, 2025</div>
+                        <img src="./photos/2025-02-08.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Went for respection . we both another greate day</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">February 16, 2025</div>
+                        <img src="./photos/2025-02-16.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">On that day you have event but i cooked for you . you respect me and came to eat spend time and eveing went to that event</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">March 9, 2025</div>
+                        <img src="./photos/2025-03-09.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Went for cycling</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">March 11, 2025</div>
+                        <img src="./photos/2025-03-11.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Checken starter for cutie cute , chaala baga vachindi .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">March 14, 2025</div>
+                        <img src="./photos/2025-03-14.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">went for holi celebrations with Chandu. Njoyed on that day</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">March 19, 2025</div>
+                        <img src="./photos/2025-03-19.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">You cooked for me Kunafa .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">March 25, 2025</div>
+                        <img src="./photos/2025-03-25.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">funny moments in office and went to one bar and kithenth . we drinka nd even there we had a confilt and left early</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">March 26, 2025</div>
+                        <img src="./photos/2025-03-26.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Cutie</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">April 18, 2025</div>
+                        <img src="./photos/2025-04-18.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Kodaikanal trip another beautiful thing. in my life</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 3, 2025</div>
+                        <img src="./photos/2025-06-03.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">holding each other never leave</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 15, 2025</div>
+                        <img src="./photos/2025-06-15.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">my cuitie birthday came</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 16, 2025</div>
+                        <img src="./photos/2025-06-16-1.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <img src="./photos/2025-06-16-2.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">again 2nd time birth day celebration with lots of love</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">August – September 2025</div>
+                        <img src="./photos/2025-08-01.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Went to yoga learning and mala and Diwali back to abck . i had a bad time . without talking you . feeling only .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">October 2025</div>
+                        <img src="./photos/2025-10-01.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">went for Supriya wedding vizag. beatifull trip</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">November 15, 2025</div>
+                        <img src="./photos/2025-11-15.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Accenture last working day. My soul left from that company . i need to go solo. felt very sad.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">November 18, 2025</div>
+                        <img src="./photos/2025-11-18.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Thanyogaa started- I am first yoga studnet</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">December 4, 2025</div>
+                        <img src="./photos/2025-12-04.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">My birthday came. another year with you spend more time closure.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">March 2, 2026</div>
+                        <img src="./photos/2026-03-02.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">Funny moments
+Started leanring face yoga and fashtion
+i am your face yoga first student . very happy to see your growth</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">May 05, 2026</div>
+                        <img src="./photos/2026-05-05.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">2 years bond over
+
+this is worst year we had frequent conflict not happy .</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-card">
+                        <div class="event-date">June 15, 2026</div>
+                        <img src="./photos/2026-06-15.jpg" onerror="this.style.display='none'" class="event-photo">
+                        <p class="event-text">birthday came - June 15th you are not here to celebeate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LETTER SECTION -->
+        <section class="letter-section">
+            <div class="letter-card">
+                <h2>💌 To My Chitti</h2>
+                <div class="letter-content">Happy Birthday my chittti. My very important person in my life. no matter what i wont leave in my life. you very very imp person. I am promising you i wont make your eyes cry from today. i wont touch you. I will bw your support. I wonr stay without our bond. i wont make you cry anyone.
+
+you may thinkjust to say happy birthday why you bring flash back . We are met 741
+in between we have so many happy moments sad moments. we never break . i am remindeing how much imp our bond from starting seesingeach other to cycling then daily office pickup drop and trips . late night cute names, first kises .
+everything .
+
+we meet 20th Saturday once you back Tirumala</div>
+            </div>
+        </section>
+
+        <!-- CLOSING SECTION -->
+        <section class="closing-section">
+            <div class="closing-promise">
+                <h2>No matter what — I won't leave. 💛</h2>
+                <p>Meeting you Saturday, once you're back from Tirumala. Can't wait.</p>
+            </div>
+            <footer>Made with love, for Chitti — June 15, 2026 🎂</footer>
+        </section>
+    </div>
+
+    <!-- PAUSE INDICATOR -->
+    <div class="pause-indicator" id="pauseIndicator">
+        ✋ Tap to pause / resume
+    </div>
+
+    <script>
+        // ==================== GLOBAL STATE ====================
+        let isPaused = false;
+        let particlesArray = [];
+
+        // ==================== PARTICLE SYSTEM ====================
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                if (isPaused) return;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(240, 192, 96, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < 100; i++) {
+            particlesArray.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // ==================== PAUSE/RESUME CONTROL ====================
+        let pauseIndicatorTimeout;
+
+        function showPauseIndicator() {
+            const indicator = document.getElementById('pauseIndicator');
+            indicator.classList.add('show');
+            clearTimeout(pauseIndicatorTimeout);
+            pauseIndicatorTimeout = setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 4000);
+        }
+
+        document.addEventListener('click', () => {
+            isPaused = !isPaused;
+            showPauseIndicator();
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.tagName !== 'A' && e.target.tagName !== 'IMG') {
+                isPaused = !isPaused;
+                showPauseIndicator();
+            }
+        });
+
+        // ==================== COUNTER ANIMATION ====================
+        function animateCounter(elementId, targetValue, duration = 2000) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+
+            let currentValue = 0;
+            const startTime = Date.now();
+
+            function updateCounter() {
+                if (isPaused) {
+                    requestAnimationFrame(updateCounter);
+                    return;
+                }
+
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                currentValue = Math.floor(progress * targetValue);
+                element.textContent = currentValue;
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                }
+            }
+
+            updateCounter();
+        }
+
+        // Trigger counter animation when page loads
+        window.addEventListener('load', () => {
+            animateCounter('daysCount', 741);
+        });
+
+        // ==================== INTERSECTION OBSERVER FOR FADE-INS ====================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.8s ease-in-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-section, .letter-section, .closing-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // ==================== SCROLL ANIMATIONS ====================
+        document.querySelectorAll('.timeline-event').forEach((event, index) => {
+            observer.observe(event);
+        });
+
+        // ==================== SPARKLE ANIMATION IN CLOSING SECTION ====================
+        function createSparkles() {
+            const closingSection = document.querySelector('.closing-section');
+            if (!closingSection) return;
+
+            setInterval(() => {
+                if (isPaused) return;
+
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                const x = Math.random() * closingSection.offsetWidth + closingSection.offsetLeft;
+                const y = Math.random() * closingSection.offsetHeight + closingSection.offsetTop;
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                sparkle.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+                closingSection.appendChild(sparkle);
+
+                setTimeout(() => sparkle.remove(), 1000);
+            }, 300);
+        }
+
+        window.addEventListener('load', () => {
+            createSparkles();
+            startAutoScroll();
+        });
+
+        // ==================== AUTO SCROLL ====================
+        function startAutoScroll() {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const speed = 0.15; // px per frame
+
+            function step() {
+                if (!isPaused) {
+                    const next = window.scrollY + speed;
+                    if (next < maxScroll) {
+                        window.scrollTo(0, next);
+                    }
+                }
+                if (window.scrollY < maxScroll) {
+                    requestAnimationFrame(step);
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        // ==================== SMOOTH SCROLL ====================
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
